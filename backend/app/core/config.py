@@ -14,7 +14,11 @@ class Settings(BaseSettings):
     
     debug: bool = os.getenv("DEBUG", "True").lower() == "true"
     
-    cors_origins: str = "http://localhost:3000,http://localhost:8080,http://127.0.0.1:3000,http://127.0.0.1:8080"
+    # Parse CORS origins from environment variable or use default
+    cors_origins: List[str] = os.getenv(
+        "CORS_ORIGINS", 
+        "http://localhost:3000,http://localhost:8080,http://127.0.0.1:3000,http://127.0.0.1:8080"
+    ).split(",")
     
     api_v1_str: str = "/api/v1"
     project_name: str = "Client Updates Backend"

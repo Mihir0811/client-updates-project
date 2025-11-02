@@ -13,7 +13,8 @@ app = FastAPI(
     description="Backend API for Client Updates Automation",
     version="1.0.0",
     docs_url="/docs",
-    redoc_url="/redoc"
+    redoc_url="/redoc",
+    redirect_slashes=False  # Disable automatic trailing slash redirects to avoid CORS issues
 )
 
 # Add CORS middleware
