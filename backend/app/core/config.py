@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class Settings(BaseSettings):
-    database_url: str = os.getenv("DATABASE_URL", "postgresql://postgres:password@localhost:5432/client_updates")
+    database_url: str = os.getenv("DATABASE_URL")
     
     secret_key: str = os.getenv("SECRET_KEY", "your_secret_key_change_this_in_production")
     algorithm: str = os.getenv("ALGORITHM", "HS256")
