@@ -1,6 +1,7 @@
 import os
 from typing import List
 from pydantic_settings import BaseSettings
+from pydantic import field_validator
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -14,14 +15,22 @@ class Settings(BaseSettings):
     
     debug: bool = os.getenv("DEBUG", "True").lower() == "true"
     
-    # Parse CORS origins from environment variable or use default
+    # CORS origins - accepts string from env, validator converts to list
     cors_origins: List[str] = os.getenv(
         "CORS_ORIGINS", 
         "http://localhost:3000,http://localhost:8080,http://127.0.0.1:3000,http://127.0.0.1:8080"
-    ).split(",")
+    )
     
     api_v1_str: str = "/api/v1"
     project_name: str = "Client Updates Backend"
+    
+    @field_validator('cors_origins', mode='before')
+    @classmethod
+    def parse_cors_origins(cls, v):
+        """Parse CORS origins from comma-separated string to list"""
+        if isinstance(v, str):
+            return [origin.strip() for origin in v.split(",")]
+        return v
     
     class Config:
         case_sensitive = False
