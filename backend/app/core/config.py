@@ -13,12 +13,16 @@ class Settings(BaseSettings):
     access_token_expire_minutes: int = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "30"))
     
     debug: bool = os.getenv("DEBUG", "True").lower() == "true"
-    cors_origins: List[str] = [
-        "http://localhost:3000",
-        "http://localhost:8080",
-        "http://127.0.0.1:3000",
-        "http://127.0.0.1:8080"
-    ]
+    # cors_origins: List[str] = [
+    #     "http://localhost:3000",
+    #     "http://localhost:8080",
+    #     "http://127.0.0.1:3000",
+    #     "http://127.0.0.1:8080"
+    # ]
+    cors_origins: List[str] = os.getenv(
+        "CORS_ORIGINS",
+        "http://localhost:3000,http://localhost:8080,http://127.0.0.1:3000,http://127.0.0.1:8080"
+    ).split(",")
     
     api_v1_str: str = "/api/v1"
     project_name: str = "Client Updates Backend"
