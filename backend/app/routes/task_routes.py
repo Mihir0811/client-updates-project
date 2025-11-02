@@ -70,7 +70,7 @@ def delete_task(
     task_service.delete_task(task_id, current_user)
     return
 
-@router.get("/date-range/", response_model=TaskListResponse)
+@router.get("/date-range", response_model=TaskListResponse)
 def get_tasks_by_date_range(
     start_date: date = Query(..., description="Start date for task range"),
     end_date: date = Query(..., description="End date for task range"),
